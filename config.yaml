@@ -1,0 +1,45 @@
+
+input_path: 
+  - '/home/mawox7977/Documents/MET/conversio_weather_station_data/npi-ceslav-kph-weather/kph-weather-2025-07.csv'
+  - '/home/mawox7977/Documents/MET/conversio_weather_station_data/npi-ceslav-kph-weather/kph-weather-2025-07-copy.csv'
+
+
+output_path:
+  - /home/mawox7977/Documents/MET/conversio_weather_station_data
+
+
+
+
+global_attributes: # Modify as needed
+
+  featureType: timeSeries
+  id: 
+  naming_authority:
+  summary: ''
+  keywords: 
+    - 'EARTH SCIENCE > ATMOSPHERE > ATMOSPHERIC TEMPERATURE > SURFACE TEMPERATURE > AIR TEMPERATURE'
+    - 'EARTH SCIENCE > ATMOSPHERE > ATMOSPHERIC WINDS > SURFACE WINDS > WIND SPEED'
+    - 'EARTH SCIENCE > ATMOSPHERE > ATMOSPHERIC WINDS > SURFACE WINDS > WIND DIRECTION'
+    - 'EARTH SCIENCE > ATMOSPHERE > ATMOSPHERIC PRESSURE > SEA LEVEL PRESSURE'
+    - 'EARTH SCIENCE > ATMOSPHERE > ATMOSPHERIC TEMPERATURE > SURFACE TEMPERATURE > DEW POINT TEMPERATURE'
+  keyword_vocabulary: 'GCMD'
+  license: 
+  Conventions: 'ACDD-1.3'
+
+  # Creator information
+  creator_type: 'person'
+  creator_name: "Ceslav Czyz"
+  creator_institution: 'Norwegian Polar Institute'
+  creator_email: 'ceslav@npolar.no'
+
+  # Publisher information
+  publisher_type: 
+  publisher_name: 
+  publisher_institution: 'MET Norway'
+  publisher_email: 
+  publisher_url: 
+
+
+  project: 
+
+
