@@ -31,11 +31,20 @@ def convert_csv_to_netcdf(config):
             ]  # Assigning column names for the data
         )
 
+        # Convert time column to datetime64
+        df['timestamp'] = pd.to_datetime(df['timestamp'])
+
+        # Reference time
+        reference_time = '1970-01-01T00:00:00'
+
+        # Calculating the numeric time offsets in seconds since the reference time
+        time_numeric = (df['timestamp'] - pd.Timestamp(reference_time)).dt.total_seconds()
+
         # Creating an xarray Dataset from the DataFrame
         # Defining coordinates (time) and data variables (other columns)
         ds = xr.Dataset(
             coords={
-                'time': df['timestamp'],
+                'time': time_numeric,
             },
             data_vars={
                 'latitude': ('time', df['latitude'].values),
@@ -52,6 +61,7 @@ def convert_csv_to_netcdf(config):
         )
 
         # Adding std names for each variable
+        ds["time"].attrs["standard_name"] = "time"
         ds["latitude"].attrs["standard_name"] = "latitude"
         ds["longitude"].attrs["standard_name"] = "longitude"
         ds["true_wind_speed"].attrs["standard_name"] = "wind_speed"
@@ -64,6 +74,7 @@ def convert_csv_to_netcdf(config):
         ds["sea_level_air_pressure"].attrs["standard_name"] = "air_pressure_at_mean_sea_level"
 
         # Adding units for each variable
+        ds["time"].attrs["long_name"] = "Time"
         ds["latitude"].attrs["units"] = "degree_north"
         ds["longitude"].attrs["units"] = "degree_east"
         ds["true_wind_speed"].attrs["units"] = "m s-1"
@@ -79,7 +90,6 @@ def convert_csv_to_netcdf(config):
         # Adding long names for each variable
         for key, value in ds.data_vars.items():
             ds[key].attrs['long_name'] = str(key)
-            print(ds[f'{key}'].attrs['long_name'])
 
         # Adding featureType and title
         ds.attrs['title'] = str(os.path.splitext(os.path.basename(data_file))[0])  # Use the file name (without extension) as the title
@@ -109,11 +119,6 @@ def convert_csv_to_netcdf(config):
 
         ds.to_netcdf(output_path + '/' + netcdf_file)
         print(f"NetCDF file '{output_path + netcdf_file}' created successfully!")
-        
-        for i, k in ds.attrs.items():
-            print(f'{i} : {k} \n')
-
-        print('-----------------------------------------------------')
 
 
 if __name__ == "__main__":
